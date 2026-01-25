@@ -34,18 +34,7 @@
         </script>
     </head>
 
-    <body class="font-primary" x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 2000)">
-
-        {{-- START: LOADING SCREEN --}}
-        <div x-show="loading" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white">
-
-            {{-- Logo dengan animasi Pulse --}}
-            <img src="{{ asset('images/logo.png') }}" alt="Loading..."
-                class="h-8 w-auto animate-pulse object-contain md:h-12">
-
-        </div>
-        {{-- END: LOADING SCREEN --}}
+    <body class="font-primary">
 
         <livewire:navbar />
 

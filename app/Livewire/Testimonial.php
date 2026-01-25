@@ -37,7 +37,7 @@ class Testimonial extends Component
 
     public function render()
     {
-        $query = Testimonials::query()->has('property')->with(['property.residence']);
+        $query = Testimonials::query()->with('residence');
 
         match ($this->sort) {
             'Latest'  => $query->latest(),

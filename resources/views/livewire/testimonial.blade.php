@@ -92,8 +92,8 @@
                             </h3>
 
                             <p class="mb-4 text-sm text-gray-500">
-                                {{ $testimonial->property->residence->name }} –
-                                {{ Str::title($testimonial->property->residence->city) }}
+                                {{ $testimonial->residence->name }} –
+                                {{ Str::title($testimonial->residence->city) }}
                             </p>
 
                             <p class="text-sm italic">
