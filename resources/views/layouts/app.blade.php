@@ -27,10 +27,10 @@
             }
             gtag('js', new Date());
 
-            // gtag('config', 'G-07KEQDJEQZ');
-            gtag('config', 'G-07KEQDJEQZ', {
-                'debug_mode': {{ app()->environment('local') ? 'true' : 'false' }}
-            });
+            gtag('config', 'G-07KEQDJEQZ');
+            // gtag('config', 'G-07KEQDJEQZ', {
+            //     'debug_mode': {{ app()->environment('local') ? 'true' : 'false' }}
+            // });
         </script>
     </head>
 
