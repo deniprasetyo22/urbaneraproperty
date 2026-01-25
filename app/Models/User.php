@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -44,5 +46,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // OPSI 1: Izinkan semua user yang punya email tertentu (Paling Aman)
+        // return $this->email === 'admin@urbanera.id' || $this->email === 'deniprasetyo2210@gmail.com';
+
+        // OPSI 2: Izinkan semua user yang sudah login (Hati-hati, semua user terdaftar bisa masuk admin)
+        // return true;
+
+        // OPSI 3: Cek apakah emailnya berakhiran @urbanera.id
+        // return str_ends_with($this->email, '@urbanera.id');
+
+        // REKOMENDASI SAYA (Sementara): Izinkan semua user agar Anda bisa login dulu
+        return true;
     }
 }

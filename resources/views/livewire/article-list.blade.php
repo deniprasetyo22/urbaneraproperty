@@ -9,7 +9,7 @@
             <div class="mb-6 flex flex-col gap-4">
                 <h2 class="text-xl font-semibold text-gray-800">Article List</h2>
 
-                <div class="shadow-xs rounded-base relative flex overflow-hidden">
+                <div class="rounded-base shadow-xs flex">
 
                     <!-- SEARCH -->
                     <div class="relative w-full">
