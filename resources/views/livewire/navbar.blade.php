@@ -94,8 +94,8 @@
         {{-- MOBILE MENU --}}
         <div
             class="{{ $mobileOpen
-                ? 'opacity-100 translate-y-0 scale-100 z-40'
-                : 'opacity-0 -translate-y-4 scale-95 pointer-events-none' }} mt-3 origin-top overflow-hidden rounded-2xl border border-gray-200 bg-white/95 shadow-md backdrop-blur transition-all duration-300 md:hidden">
+                ? 'opacity-100 translate-y-0 scale-100 z-40 pointer-events-auto'
+                : 'opacity-0 -translate-y-4 scale-95 z-0 pointer-events-none' }} mt-3 origin-top overflow-hidden rounded-2xl border border-gray-200 bg-white/95 shadow-md backdrop-blur transition-all duration-300 md:hidden">
 
             <a href="/"
                 class="{{ request()->routeIs('home') ? 'bg-brand text-white' : 'hover:bg-gray-100' }} block px-6 py-4">
