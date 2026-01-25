@@ -7,7 +7,7 @@
 
         {{-- VIDEO --}}
         <video class="rounded-base mb-10 w-full" controls>
-            <source src="{{ asset($about->video) }}" type="video/mp4">
+            <source src="{{ asset('storage/' . $about->video) }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
 
