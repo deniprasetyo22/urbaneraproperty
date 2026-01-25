@@ -60,7 +60,7 @@ class SearchBar extends Component
             $params['type'] = $this->type;
         }
 
-        // 3. Cek Price Range (Gunakan $this->priceRange)
+        // 3. Cek Price Range
         if (!empty($this->priceRange)) {
             $params['priceRange'] = $this->priceRange;
         }

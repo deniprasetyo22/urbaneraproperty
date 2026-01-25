@@ -38,7 +38,9 @@
         {{-- DYNAMIC INPUT --}}
         <div class="relative flex flex-1 items-center">
             @if ($activeFilter === 'location')
-                <div class="relative flex flex-1 items-center">
+                {{-- TAMBAHKAN wire:key="location-input" --}}
+                <div class="relative flex flex-1 items-center" wire:key="location-input">
+
                     {{-- ICON --}}
                     <svg class="absolute left-3 h-4 w-4 text-gray-400" fill="none" stroke="currentColor"
                         stroke-width="1.5" viewBox="0 0 24 24">
@@ -47,11 +49,10 @@
                         <circle cx="12" cy="10" r="3" />
                     </svg>
 
-                    {{-- SELECT --}}
+                    {{-- SELECT LOCATION --}}
                     <select wire:model.defer="location"
                         class="w-full appearance-none rounded-full border border-gray-200 py-2.5 pl-10 pr-4 text-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="" selected disabled hidden>Location</option>
-
                         @foreach ($locations as $city)
                             <option value="{{ $city }}">{{ Str::title($city) }}</option>
                         @endforeach
@@ -59,8 +60,10 @@
 
                 </div>
             @elseif ($activeFilter === 'type')
-                <div class="relative w-full">
-                    {{-- ICON (HOME) --}}
+                {{-- TAMBAHKAN wire:key="type-input" --}}
+                <div class="relative w-full" wire:key="type-input">
+
+                    {{-- ICON TYPE --}}
                     <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" fill="none"
                         stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -68,7 +71,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 21V12h6v9" />
                     </svg>
 
-                    {{-- SELECT --}}
+                    {{-- SELECT TYPE --}}
                     <select wire:model.defer="type"
                         class="w-full appearance-none rounded-full border border-gray-200 py-2.5 pl-10 pr-10 text-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="" selected disabled hidden>Property Type</option>
@@ -78,24 +81,19 @@
                     </select>
 
                 </div>
-            @else
-                <div class="relative w-full">
-                    {{-- ICON DOLLAR (PAKAI SVG KAMU) --}}
+            @elseif ($activeFilter === 'priceRange')
+                {{-- TAMBAHKAN wire:key="price-input" --}}
+                <div class="relative w-full" wire:key="price-input">
+
+                    {{-- ICON PRICE --}}
                     <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659
-                             c1.171.879 3.07.879 4.242 0
-                             1.172-.879 1.172-2.303 0-3.182
-                             C13.536 12.219 12.768 12 12 12
-                             c-.725 0-1.45-.22-2.003-.659
-                             -1.106-.879-1.106-2.303 0-3.182
-                             s2.9-.879 4.006 0l.415.33
-                             M21 12a9 9 0 1 1-18 0
-                             9 9 0 0 1 18 0Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
 
-                    {{-- SELECT --}}
+                    {{-- SELECT PRICE --}}
                     <select wire:model.defer="priceRange"
                         class="w-full appearance-none rounded-full border border-gray-200 py-2.5 pl-10 pr-10 text-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="" selected disabled hidden>Price Range</option>
