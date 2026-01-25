@@ -1,4 +1,4 @@
-<footer class="bg-secondary relative z-50 mt-12 text-white">
+<footer class="bg-secondary relative z-30 mt-12 text-white">
     <div class="mx-auto px-8 py-14">
         <div class="grid gap-10 md:grid-cols-5">
 
@@ -9,7 +9,7 @@
                 </div>
 
                 <!-- SOCIAL ICONS -->
-                <div class="pointer-events-auto relative z-50 mt-4 flex gap-3 md:justify-center">
+                <div class="pointer-events-auto relative z-30 mt-4 flex gap-3 md:justify-center">
                     <a href="https://wa.me/6281388860580"
                         class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-green-500 hover:bg-gray-100">
                         <i class="fa-brands fa-whatsapp"></i>
