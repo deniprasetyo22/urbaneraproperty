@@ -1,9 +1,9 @@
-<nav class="pointer-events-none fixed inset-x-0 top-6 z-50">
-    <div class="pointer-events-auto mx-auto px-4">
+<nav class="pointer-events-none fixed inset-x-0 top-0 z-40 h-auto pt-6">
+    <div class="mx-auto px-4">
 
         {{-- MAIN BAR --}}
         <div
-            class="flex items-center justify-between rounded-full border border-gray-200 bg-white/90 px-5 py-3 shadow-md backdrop-blur">
+            class="pointer-events-auto flex items-center justify-between rounded-full border border-gray-200 bg-white/90 px-5 py-3 shadow-md backdrop-blur">
 
             {{-- LOGO --}}
             <a href="/" class="flex items-center gap-2">
@@ -95,7 +95,7 @@
         <div
             class="{{ $mobileOpen
                 ? 'opacity-100 translate-y-0 scale-100 z-40 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 scale-95 z-0 pointer-events-none' }} absolute left-0 right-0 mt-3 origin-top overflow-hidden rounded-2xl border border-gray-200 bg-white/95 shadow-md backdrop-blur transition-all duration-300 md:hidden">
+                : 'opacity-0 -translate-y-4 scale-95 z-0 pointer-events-none' }} mt-3 origin-top overflow-hidden rounded-2xl border border-gray-200 bg-white/95 shadow-md backdrop-blur transition-all duration-300 md:hidden">
 
             <a href="/"
                 class="{{ request()->routeIs('home') ? 'bg-brand text-white' : 'hover:bg-gray-100' }} block px-6 py-4">
