@@ -114,7 +114,8 @@
                         <div class="relative overflow-hidden">
                             <span
                                 class="absolute left-0 top-0 z-10 rounded-lg bg-green-500 px-4 py-1 text-sm text-white">New</span>
-                            <img src="{{ asset($residence->image) }}" class="h-48 w-full object-cover md:h-56">
+                            <img src="{{ asset('storage/' . $residence->image) }}"
+                                class="h-48 w-full object-cover md:h-56">
                         </div>
                         <div class="p-4 text-left">
                             <h3 class="font-semibold">{{ $residence->name }}</h3>
@@ -428,7 +429,8 @@
                 <div class="mt-10 grid gap-6 md:grid-cols-3">
                     @foreach ($articles as $article)
                         <div class="overflow-hidden rounded-xl shadow">
-                            <img src="{{ $article->image }}" class="h-48 w-full object-cover md:h-56">
+                            <img src="{{ asset('storage/' . $article->image) }}"
+                                class="h-48 w-full object-cover md:h-56">
                             <div class="flex min-h-[220px] flex-col p-4 text-left">
                                 <h3 class="mb-auto text-xl font-semibold">{{ $article->title }}</h3>
 
