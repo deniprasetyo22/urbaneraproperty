@@ -10,10 +10,10 @@ class ListCompanyProfiles extends ListRecords
 {
     protected static string $resource = CompanyProfileResource::class;
 
-    // protected function getHeaderActions(): array
-    // {
-    //     return [
-    //         Actions\CreateAction::make(),
-    //     ];
-    // }
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+        ];
+    }
 }
