@@ -43,7 +43,7 @@
 
                 <div class="pointer-events-none fixed inset-0 overflow-hidden">
                     <div class="absolute inset-0 overflow-hidden">
-                        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-24">
 
                             <div x-show="showFilter"
                                 x-transition:enter="transform transition ease-in-out duration-300 sm:duration-500"
@@ -163,7 +163,8 @@
                                     </span>
                                 @endif
 
-                                <img src="{{ $residence->image }}" class="h-48 w-full object-cover md:h-56">
+                                <img src="{{ 'storage/' . $residence->image }}"
+                                    class="h-48 w-full object-cover md:h-56">
 
                                 <div class="p-4 text-left">
                                     <h3 class="font-semibold">{{ $residence->name }}</h3>

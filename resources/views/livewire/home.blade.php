@@ -68,7 +68,7 @@
 
                             {{-- VIDEO --}}
                             <video class="w-full rounded-md" controls autoplay loop>
-                                <source src="{{ asset($company_profile->video) }}" type="video/mp4">
+                                <source src="{{ asset('storage/' . $company_profile->video) }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
 
