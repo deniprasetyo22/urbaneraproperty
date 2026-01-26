@@ -150,15 +150,19 @@
                         @enderror
                     </div>
 
+                    @error('recaptcha_error')
+                        <div class="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-600">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
                     <!-- Button -->
-                    <button type="submit" wire:loading.attr="disabled"
+                    <button type="button" onclick="submitMessage()" wire:loading.attr="disabled" wire:target="submit"
                         class="flex w-full items-center justify-center rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
 
-                        <!-- Normal -->
-                        <span wire:loading.remove>Send</span>
+                        <span wire:loading.remove wire:target="submit">Send Feedback</span>
 
-                        <!-- Loading -->
-                        <span wire:loading class="flex items-center gap-2">
+                        <span wire:loading wire:target="submit" class="flex items-center gap-2">
                             Sending...
                         </span>
                     </button>
@@ -169,6 +173,24 @@
     </div>
 
     <script>
+        function submitMessage() {
+            // Cek apakah grecaptcha loaded
+            if (typeof grecaptcha === 'undefined') {
+                alert('Recaptcha not ready. Please refresh.');
+                return;
+            }
+
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                        action: 'submit'
+                    })
+                    .then(function(token) {
+                        // Panggil method 'submit' di backend dengan token
+                        @this.call('submit', token);
+                    });
+            });
+        }
+
         document.addEventListener('livewire:init', () => {
             Livewire.on('toast-shown', () => {
                 setTimeout(() => {

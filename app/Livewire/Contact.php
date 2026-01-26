@@ -4,9 +4,10 @@ namespace App\Livewire;
 
 use App\Models\Message;
 use Livewire\Component;
-use App\Mail\MessageNotificationMail;
-use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageNotificationMail;
 
 #[Title('Contact')]
 class Contact extends Component
@@ -29,9 +30,30 @@ class Contact extends Component
         'message' => 'required|string',
     ];
 
-    public function submit()
+    public function submit($token = null)
     {
         $this->validate();
+        // sleep(3);
+
+        // 1. Validasi reCAPTCHA v3 ke Google
+        if (!$token) {
+            $this->addError('recaptcha_error', 'Verification failed (No Token).');
+            return;
+        }
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret'   => config('services.recaptcha.secret_key'),
+            'response' => $token,
+            'remoteip' => request()->ip(),
+        ]);
+
+        $recaptchaData = $response->json();
+
+        // 2. Cek Success dan Score (0.0 bot, 1.0 human). Batas aman biasanya 0.5
+        if (!($recaptchaData['success'] ?? false) || ($recaptchaData['score'] ?? 0) < 0.5) {
+            $this->addError('recaptcha_error', 'Spam detected. Please try again.');
+            return;
+        }
 
         $data = Message::create([
             'name' => $this->name,
