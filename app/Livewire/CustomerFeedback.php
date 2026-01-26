@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomerFeedbackNotificationMail;
 use App\Models\CustomerFeedback as CustomerFeedbackModel;
 
 #[Title('Customer Feedback')]
@@ -54,13 +56,16 @@ class CustomerFeedback extends Component
             return;
         }
 
-        CustomerFeedbackModel::create([
+        $data = CustomerFeedbackModel::create([
             'name'     => $this->name,
             'email'    => $this->email,
             'phone'    => $this->phone,
             'category' => $this->category,
             'message'  => $this->message,
         ]);
+
+        Mail::to(config('mail.from.address'))
+            ->queue(new CustomerFeedbackNotificationMail($data));
 
         // reset form
         $this->reset();

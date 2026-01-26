@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Message;
 use Livewire\Component;
-use App\Mail\NotificationMail;
+use App\Mail\MessageNotificationMail;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Title;
 
@@ -43,7 +43,7 @@ class Contact extends Component
 
         // kirim email notifikasi
         Mail::to(config('mail.from.address'))
-            ->queue(new NotificationMail($data));
+            ->queue(new MessageNotificationMail($data));
 
         // reset form
         $this->reset();

@@ -2,26 +2,26 @@
 
 namespace App\Mail;
 
-use App\Models\Message;
+use App\Models\CustomerFeedback;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
-class NotificationMail extends Mailable implements ShouldQueue
+class CustomerFeedbackNotificationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public Message $messageData;
+    public CustomerFeedback $messageData;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Message $message)
+    public function __construct(CustomerFeedback $messageData)
     {
-        $this->messageData = $message;
+        $this->messageData = $messageData;
     }
 
     /**
@@ -30,7 +30,7 @@ class NotificationMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Message',
+            subject: 'New Customer Feedback',
         );
     }
 
@@ -40,7 +40,7 @@ class NotificationMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'emails.notification',
+            view: 'emails.customer-feedback-notification',
         );
     }
 
