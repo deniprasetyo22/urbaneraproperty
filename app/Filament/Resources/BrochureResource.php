@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Get;
 use App\Models\Brochure;
 use Filament\Forms\Form;
 use App\Models\Residence;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BrochureResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BrochureResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class BrochureResource extends Resource
 {
@@ -56,12 +58,18 @@ class BrochureResource extends Resource
                 FileUpload::make('file')
                     ->label('Brochure (PDF)')
                     ->required()
-                    ->acceptedFileTypes(['application/pdf']) // ✅ hanya PDF
-                    ->directory('brochures')                  // ✅ storage/app/public/brochures
-                    ->disk('public')                          // ✅ pakai storage public
-                    ->maxSize(10240)                           // ✅ 10MB (opsional)
-                    ->openable()                               // ✅ bisa dibuka di admin
-                    ->downloadable()                          // ✅ bisa download di admin
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->directory('brochures')
+                    ->disk('public')
+                    ->maxSize(10240)
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, Get $get): string {
+                        $residenceId = $get('residence_id');
+                        $residence = Residence::find($residenceId);
+                        return $residence?->name . '-' . 'Brochure' . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+                    })
+                    ->required()
+                    ->openable()
+                    ->downloadable()
                     ->columnSpanFull(),
 
             ]);
