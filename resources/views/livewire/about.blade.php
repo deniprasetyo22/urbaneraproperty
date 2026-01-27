@@ -6,10 +6,29 @@
     <div class="mx-auto max-w-7xl px-6 pt-8">
 
         {{-- VIDEO --}}
-        <video class="rounded-base mb-10 w-full" controls>
+        {{-- <video class="rounded-base mb-10 w-full" controls>
             <source src="{{ asset('storage/' . $about->video) }}" type="video/mp4">
             Your browser does not support the video tag.
-        </video>
+        </video> --}}
+
+        {{-- YOUTUBE VIDEO --}}
+        <div class="mb-10">
+            <div class="relative w-full pb-[56.25%]">
+                <iframe class="rounded-base absolute inset-0 h-full w-full"
+                    src="https://www.youtube.com/embed/{{ $about->video_link }}" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+
+                {{-- <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/Gx-jDkR55aU?si=ldH4zJ-FzJ7IWrJs" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe> --}}
+            </div>
+        </div>
 
         {{-- ABOUT --}}
         <div class="mb-10">
@@ -82,7 +101,7 @@
                 <h2 class="mb-6 text-2xl font-bold">Portfolio & History</h2>
 
                 <div class="space-y-12">
-                    @foreach ($about->portfolio as $index => $item)
+                    @foreach (array_reverse($about->portfolio) as $index => $item)
                         <div class="relative grid items-center gap-4 md:grid-cols-2">
 
                             {{-- DOT --}}

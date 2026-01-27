@@ -2,10 +2,11 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\ChartWidget;
-use Spatie\Analytics\Facades\Analytics;
+use Log;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Carbon;
+use Filament\Widgets\ChartWidget;
+use Spatie\Analytics\Facades\Analytics;
 
 class AnalyticsOverviewChart extends ChartWidget
 {
@@ -27,20 +28,20 @@ class AnalyticsOverviewChart extends ChartWidget
 
     protected function getData(): array
     {
-        // 2. Baca filter yang dipilih user (default ke 'week' jika kosong)
         $activeFilter = $this->filter;
 
-        // 3. Tentukan Period berdasarkan filter
         $period = match ($activeFilter) {
             'month' => Period::months(1),
             'year' => Period::years(1),
-            default => Period::days(7), // Default 'week'
+            default => Period::days(7),
         };
 
         try {
-            // Ambil data sesuai periode yang dipilih
-            $data = Analytics::fetchTotalVisitorsAndPageViews($period);
+            // 1. Ambil data dan urutkan berdasarkan tanggal secara Ascending (Lama ke Baru)
+            $data = Analytics::fetchTotalVisitorsAndPageViews($period)
+                ->sortBy('date'); // Menambahkan pengurutan di sini
 
+            // 2. Mapping data yang sudah berurutan
             $dates = $data->map(fn($item) => $item['date']->format('d M'));
             $visitors = $data->map(fn($item) => $item['activeUsers']);
             $pageViews = $data->map(fn($item) => $item['screenPageViews']);
@@ -48,19 +49,19 @@ class AnalyticsOverviewChart extends ChartWidget
             return [
                 'datasets' => [
                     [
-                        'label' => 'Pengunjung',
-                        'data' => $visitors->toArray(),
+                        'label' => 'Visitors',
+                        'data' => $visitors->values()->toArray(), // Gunakan values() untuk reset index
                         'borderColor' => '#3b82f6',
                         'fill' => 'start',
                     ],
                     [
-                        'label' => 'Halaman Dilihat',
-                        'data' => $pageViews->toArray(),
+                        'label' => 'Page Views',
+                        'data' => $pageViews->values()->toArray(), // Gunakan values() untuk reset index
                         'borderColor' => '#10b981',
                         'fill' => 'start',
                     ],
                 ],
-                'labels' => $dates->toArray(),
+                'labels' => $dates->values()->toArray(),
             ];
         } catch (\Exception $e) {
             return [

@@ -1,4 +1,11 @@
-<div x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 2000)">
+<div x-data="{
+    loading: !sessionStorage.getItem('hasLoaded')
+}" x-init="if (loading) {
+    setTimeout(() => {
+        loading = false;
+        sessionStorage.setItem('hasLoaded', 'true');
+    }, 2000);
+}">
 
     {{-- START: LOADING SCREEN --}}
     <div x-show="loading" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"

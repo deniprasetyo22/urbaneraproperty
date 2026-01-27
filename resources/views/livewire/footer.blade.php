@@ -3,12 +3,12 @@
         <div class="grid gap-10 md:grid-cols-5">
 
             <!-- BRAND -->
-            <div>
-                <div class="mb-4 flex items-center gap-2 md:justify-center">
-                    <img src="{{ asset('images/logo.png') }}" alt="Urbanera" class="h-10">
-                </div>
+            {{-- <div> --}}
+            <div class="mb-4 flex items-center gap-2 md:justify-center">
+                <img src="{{ asset('images/logo-white.png') }}" alt="Urbanera" class="h-16 w-auto">
+            </div>
 
-                <!-- SOCIAL ICONS -->
+            {{-- <!-- SOCIAL ICONS -->
                 <div class="pointer-events-auto relative z-30 mt-4 flex gap-3 md:justify-center">
                     <a href="https://wa.me/6281388860580"
                         class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-green-500 hover:bg-gray-100">
@@ -26,8 +26,8 @@
                         class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:bg-gray-100">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                </div>
-            </div>
+                </div> --}}
+            {{-- </div> --}}
 
             <!-- QUICK LINKS -->
             <div>
@@ -129,6 +129,6 @@
 
     <!-- COPYRIGHT -->
     <div class="text-tertiary pb-6 text-center text-xs">
-        ©2025 Urbanera. All rights reserved
+        ©{{ date('Y') }} Urbanera. All rights reserved
     </div>
 </footer>

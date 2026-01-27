@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('company_profiles', function (Blueprint $table) {
             $table->id();
-            $table->text('video');
+            $table->text('video')->nullable();
+            $table->text('video_link')->nullable();
             $table->text('about');
             $table->text('vision');
             $table->text('mission');

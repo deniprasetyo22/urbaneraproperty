@@ -8,8 +8,11 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\CompanyProfile;
 use Filament\Resources\Resource;
+use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,8 +20,6 @@ use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CompanyProfileResource\Pages;
 use App\Filament\Resources\CompanyProfileResource\RelationManagers;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
 
 class CompanyProfileResource extends Resource
 {
@@ -49,14 +50,18 @@ class CompanyProfileResource extends Resource
                     ->columnSpanFull()
                     ->required(),
 
-                FileUpload::make('video')
-                    ->label('Video')
-                    ->acceptedFileTypes(['video/*'])
-                    ->directory('videos')
-                    ->disk('public')
-                    ->maxSize(102400)
-                    ->columnSpanFull()
-                    ->required(),
+                TextInput::make('video_link')
+                    ->label(new HtmlString('Video Link <small class="text-gray-500" style="font-size: 0.8em;">(ex: https://youtu.be/Gx-jDkR55aU -> Gx-jDkR55aU)</small>'))
+                    ->placeholder('Video Link')
+                    ->columnSpanFull(),
+
+                // FileUpload::make('video')
+                //     ->label('Video')
+                //     ->acceptedFileTypes(['video/*'])
+                //     ->directory('videos')
+                //     ->disk('public')
+                //     ->maxSize(102400)
+                //     ->columnSpanFull(),
 
                 Section::make('Achievements')
                     ->schema([
@@ -144,6 +149,7 @@ class CompanyProfileResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\ForceDeleteAction::make(),
                     Tables\Actions\RestoreAction::make(),
