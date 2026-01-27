@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="mt-16 bg-white">
     <div class="mx-auto max-w-7xl px-6 pt-8">
 
         <p class="text-md mb-3 text-gray-500"><a
