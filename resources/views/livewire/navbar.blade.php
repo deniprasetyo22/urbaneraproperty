@@ -7,7 +7,7 @@
 
             {{-- LOGO --}}
             <a href="/" class="flex items-center gap-2">
-                <img src={{ asset('images/logo.png') }} alt="logo" class="h-8 w-auto">
+                <img src={{ asset('images/logo-2.png') }} alt="logo" class="h-8 w-auto">
             </a>
 
             {{-- DESKTOP MENU --}}
