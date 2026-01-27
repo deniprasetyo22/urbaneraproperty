@@ -175,14 +175,16 @@
                     <span>{{ Str::title(strtolower($property->residence->city)) }}</span>
                 </p>
 
-                <p class="mt-4 leading-relaxed text-gray-700">
+                <div
+                    class="prose mt-4 max-w-none text-justify text-gray-700 [&_li]:my-1 [&_li]:ml-0 [&_ol]:my-3 [&_ol]:list-inside [&_ol]:list-decimal [&_ol]:pl-0 [&_p]:mb-3 [&_ul]:my-3 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:pl-0">
                     {!! $property->description !!}
-                </p>
+                </div>
 
                 <!-- LOCATION INFO -->
                 <div class="mt-6">
                     <h3 class="mb-2 text-lg font-semibold">Nearby Locations and Amenities :</h3>
-                    <div class="space-y-1 text-sm text-gray-600 [&_li]:ml-1 [&_ol]:list-decimal [&_ol]:pl-5">
+                    <div
+                        class="prose max-w-none text-justify text-gray-700 [&_li]:my-1 [&_li]:ml-0 [&_ol]:my-3 [&_ol]:list-inside [&_ol]:list-decimal [&_ol]:pl-0 [&_p]:mb-3 [&_ul]:my-3 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:pl-0">
                         {!! $property->nearby_amenities !!}
                     </div>
                 </div>
