@@ -19,6 +19,7 @@
     {{-- END: LOADING SCREEN --}}
     {{-- HERO SECTION --}}
 
+    {{-- HERO WRAPPER --}}
     <section class="relative">
 
         {{-- HERO WRAPPER --}}
@@ -65,20 +66,26 @@
 
                     <div class="relative z-10 w-full max-w-5xl px-4">
 
-                        <!-- WRAPPER GAMBAR -->
-                        <div class="relative w-full rounded-md">
+                        <!-- WRAPPER VIDEO -->
+                        <div class="relative w-full rounded-md pb-[56.25%]">
 
-                            <!-- Close button (nempel ke gambar) -->
+                            <!-- Close button -->
                             <button wire:click="toggleModalVideo"
                                 class="absolute right-0 top-0 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-800 shadow hover:bg-gray-300">
                                 ✕
                             </button>
 
-                            {{-- VIDEO --}}
-                            <video class="w-full rounded-md" controls autoplay loop>
+                            <!-- IFRAME -->
+                            {{-- <video class="w-full rounded-md" controls autoplay loop>
                                 <source src="{{ asset('storage/' . $company_profile->video) }}" type="video/mp4">
                                 Your browser does not support the video tag.
-                            </video>
+                            </video> --}}
+                            <iframe class="rounded-base absolute inset-0 h-full w-full"
+                                src="https://www.youtube.com/embed/{{ $company_profile->video_link }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
 
                         </div>
                     </div>
