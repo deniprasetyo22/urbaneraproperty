@@ -12,7 +12,8 @@
         x-transition:leave-end="opacity-0" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white">
 
         {{-- Logo dengan animasi Pulse --}}
-        <img src="{{ asset('images/logo.png') }}" alt="Loading..." class="h-8 w-auto animate-pulse object-contain md:h-12">
+        <img src="{{ asset('images/logo.png') }}" alt="Loading..."
+            class="h-20 w-auto animate-pulse object-contain md:h-32">
 
     </div>
     {{-- END: LOADING SCREEN --}}
