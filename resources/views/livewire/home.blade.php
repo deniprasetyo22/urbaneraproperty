@@ -454,7 +454,7 @@
                                     {{ $article->created_at->translatedFormat('l, j F Y H:i') }} WIB
                                 </p>
 
-                                <div class="line-clamp-3 text-sm text-gray-600">
+                                <div class="text line-clamp-3 text-gray-600">
                                     {!! $article->content !!}
                                 </div>
 

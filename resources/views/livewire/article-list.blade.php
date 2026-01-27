@@ -98,7 +98,7 @@
                     <div class="grid gap-6 md:grid-cols-3">
                         @foreach ($articles as $article)
                             <div class="overflow-hidden rounded-xl shadow">
-                                <img src="{{ $article->image }}" class="h-48 w-full object-cover md:h-56">
+                                <img src="{{ 'storage/' . $article->image }}" class="h-48 w-full object-cover md:h-56">
                                 <div class="flex min-h-[220px] flex-col p-4 text-left">
                                     <h3 class="mb-auto text-xl font-semibold">{{ $article->title }}</h3>
 
@@ -107,7 +107,7 @@
                                         {{ $article->created_at->translatedFormat('l, j F Y H:i') }} WIB
                                     </p>
 
-                                    <div class="line-clamp-3 text-sm text-gray-600">
+                                    <div class="text line-clamp-3 text-gray-600">
                                         {!! $article->content !!}
                                     </div>
 
