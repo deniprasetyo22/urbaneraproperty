@@ -97,8 +97,8 @@ class PropertyResource extends Resource
                         ->required(),
 
                     Forms\Components\Textarea::make('map')
-                        ->placeholder('https://maps.app.goo.gl/xxxxxxxxxxxx')
-                        ->label('Google Maps Embed / Link')
+                        ->placeholder('Google Maps Embed <iframe>')
+                        ->label('Google Maps Embed Link')
                         ->rows(3)
                         ->columnSpanFull()
                         ->required(),

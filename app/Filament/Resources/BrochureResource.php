@@ -59,7 +59,7 @@ class BrochureResource extends Resource
                     ->acceptedFileTypes(['application/pdf']) // ✅ hanya PDF
                     ->directory('brochures')                  // ✅ storage/app/public/brochures
                     ->disk('public')                          // ✅ pakai storage public
-                    ->maxSize(10240)                           // ✅ 10MB (opsional)
+                    // ->maxSize(10240)                           // ✅ 10MB (opsional)
                     ->openable()                               // ✅ bisa dibuka di admin
                     ->downloadable()                          // ✅ bisa download di admin
                     ->columnSpanFull(),

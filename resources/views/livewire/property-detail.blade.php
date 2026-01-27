@@ -492,7 +492,7 @@
                         <div class="hidden duration-700 ease-in-out"
                             data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
 
-                            <img src="{{ asset($item) }}" wire:click="openModal('{{ $item }}')"
+                            <img src="{{ asset('storage/' . $item) }}" wire:click="openModal('{{ $item }}')"
                                 class="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer object-cover"
                                 alt="Floor plan {{ $index + 1 }}">
                         </div>

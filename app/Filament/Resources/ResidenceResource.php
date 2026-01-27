@@ -87,7 +87,7 @@ class ResidenceResource extends Resource
                     ->image()
                     ->directory('residences')
                     ->disk('public')
-                    ->imagePreviewHeight('200')
+                    // ->imagePreviewHeight('200')
                     // ->maxSize(2048) // 2MB
                     ->columnSpanFull()
                     ->required(),
