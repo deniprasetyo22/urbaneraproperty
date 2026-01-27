@@ -91,7 +91,6 @@
         </div>
     </section>
 
-
     {{-- FEATURED LISTING --}}
     <section class="scroll-animate mx-auto mt-14 max-w-7xl px-6 text-center md:mt-16">
         <h2 class="mb-2 text-2xl font-bold">
@@ -123,7 +122,7 @@
                             <span
                                 class="absolute left-0 top-0 z-10 rounded-lg bg-green-500 px-4 py-1 text-sm text-white">New</span>
                             <img src="{{ asset('storage/' . $residence->image) }}"
-                                class="h-48 w-full object-cover md:h-56">
+                                class="h-52 w-full object-cover md:h-56">
                         </div>
                         <div class="p-4 text-left">
                             <h3 class="font-semibold">{{ $residence->name }}</h3>
@@ -360,11 +359,12 @@
                                 @else
                                     {{-- Tampilan Gambar --}}
                                     <img src="{{ asset('storage/' . $firstMedia) }}"
-                                        class="h-full w-full object-cover" alt="{{ $property->name }}">
+                                        class="h-52 w-full object-cover md:h-56" alt="{{ $property->name }}">
                                 @endif
                             @else
                                 {{-- Fallback jika tidak ada media --}}
-                                <div class="flex h-full w-full items-center justify-center text-gray-400">
+                                <div
+                                    class="flex h-52 w-full items-center justify-center object-cover text-gray-400 md:h-56">
                                     <div class="text-center">
                                         <i class="fa-regular fa-image mb-2 text-3xl"></i>
                                         <p class="text-xs">No Media</p>
@@ -438,7 +438,7 @@
                     @foreach ($articles as $article)
                         <div class="overflow-hidden rounded-xl shadow">
                             <img src="{{ asset('storage/' . $article->image) }}"
-                                class="h-48 w-full object-cover md:h-56">
+                                class="h-52 w-full object-cover md:h-56">
                             <div class="flex min-h-[220px] flex-col p-4 text-left">
                                 <h3 class="mb-auto text-xl font-semibold">{{ $article->title }}</h3>
 

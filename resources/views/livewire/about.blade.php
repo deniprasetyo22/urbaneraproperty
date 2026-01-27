@@ -35,7 +35,8 @@
             <h2 class="mb-3 text-2xl font-bold">About Urbanera</h2>
 
             @if ($about)
-                <div class="prose max-w-none text-justify text-gray-700">
+                <div
+                    class="prose max-w-none text-justify text-gray-700 [&_li]:my-1 [&_li]:ml-0 [&_ol]:my-3 [&_ol]:list-inside [&_ol]:list-decimal [&_ol]:pl-0 [&_p]:mb-3 [&_ul]:my-3 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:pl-0">
                     {!! $about->about !!}
                 </div>
             @endif
@@ -46,9 +47,10 @@
             <h2 class="mb-3 text-2xl font-bold">Vision</h2>
 
             @if ($about)
-                <p class="border-l-4 border-gray-300 pl-4 text-justify italic text-gray-700">
+                <div
+                    class="prose max-w-none text-justify text-gray-700 [&_li]:my-1 [&_li]:ml-0 [&_ol]:my-3 [&_ol]:list-inside [&_ol]:list-decimal [&_ol]:pl-0 [&_p]:mb-3 [&_ul]:my-3 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:pl-0">
                     {!! $about->vision !!}
-                </p>
+                </div>
             @endif
         </div>
 
