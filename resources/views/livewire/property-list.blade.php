@@ -125,6 +125,17 @@
                                         </div>
 
                                         <div>
+                                            <label class="text-heading mb-2 block text-sm font-medium">Status</label>
+                                            <select wire:model.live="status"
+                                                class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:border-brand focus:ring-brand w-full border px-3 py-2.5 text-sm">
+                                                <option value="">All Status</option>
+                                                @foreach ($this->statuses as $st)
+                                                    <option value="{{ $st }}">{{ $st }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div>
                                             <label class="text-heading mb-2 block text-sm font-medium">Price
                                                 Range</label>
                                             <div class="space-y-2">
@@ -205,7 +216,7 @@
             </div>
 
             <div wire:loading.remove
-                wire:target="search,setSort,setPriceRange,setLocation,setType,setResidence,page,resetFilters">
+                wire:target="search,setSort,setPriceRange,setLocation,setType,setResidence,setStatus,page,resetFilters">
                 @if (count($properties) == 0)
                     <div class="flex flex-col items-center justify-center py-10">
                         <div class="rounded-full bg-gray-100 p-4">

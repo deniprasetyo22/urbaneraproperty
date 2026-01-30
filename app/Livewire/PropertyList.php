@@ -42,6 +42,9 @@ class PropertyList extends Component
     #[Url(except: '')]
     public $residence = '';
 
+    #[Url(except: '')]
+    public $status = '';
+
     public function updatedPerPage() { $this->resetPage(); }
     public function updatedSearch() { $this->resetPage(); }
     public function updatedSort() { $this->resetPage(); }
@@ -49,6 +52,7 @@ class PropertyList extends Component
     public function updatedLocation() { $this->resetPage(); }
     public function updatedType() { $this->resetPage(); }
     public function updatedResidence() { $this->resetPage(); }
+    public function updatedStatus() { $this->resetPage(); }
 
     public function setSort(string $value)
     {
@@ -105,10 +109,21 @@ class PropertyList extends Component
         return Residence::select('name')->distinct()->orderBy('name')->pluck('name');
     }
 
+    public function setStatus(string $value)
+    {
+        $this->status = $value;
+        $this->resetPage();
+    }
+
+    public function getStatusesProperty()
+    {
+        return Property::select('status')->distinct()->orderBy('status')->pluck('status');
+    }
+
     // Method untuk Reset Filter
     public function resetFilters()
     {
-        $this->reset(['location', 'type', 'priceRange', 'sort', 'residence', 'search']);
+        $this->reset(['location', 'type', 'priceRange', 'sort', 'residence', 'search', 'status']);
         $this->resetPage();
     }
 
@@ -148,6 +163,10 @@ class PropertyList extends Component
 
         if ($this->residence) {
             $query->whereHas('residence', fn($q) => $q->where('name', $this->residence));
+        }
+
+        if ($this->status) {
+            $query->where('status', $this->status);
         }
 
         if ($this->priceRange) {
