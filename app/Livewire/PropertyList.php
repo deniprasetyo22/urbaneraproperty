@@ -48,7 +48,16 @@ class PropertyList extends Component
     public function updatedPerPage() { $this->resetPage(); }
     public function updatedSearch() { $this->resetPage(); }
     public function updatedSort() { $this->resetPage(); }
-    public function updatedPriceRange() { $this->resetPage(); }
+    public function updatedPriceRange($value)
+    {
+        if ($value) {
+            $this->status = 'Available';
+        }
+        if(!$value) {
+            $this->status = '';
+        }
+        $this->resetPage();
+    }
     public function updatedLocation() { $this->resetPage(); }
     public function updatedType() { $this->resetPage(); }
     public function updatedResidence() { $this->resetPage(); }
@@ -63,6 +72,12 @@ class PropertyList extends Component
     public function setPriceRange(string $value)
     {
         $this->priceRange = $value;
+        if ($value) {
+            $this->status = 'Available';
+        }
+        if(!$value) {
+            $this->status = '';
+        }
         $this->resetPage();
     }
 

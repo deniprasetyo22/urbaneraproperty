@@ -63,6 +63,7 @@ class SearchBar extends Component
         // 3. Cek Price Range
         if (!empty($this->priceRange)) {
             $params['priceRange'] = $this->priceRange;
+            $params['status'] = 'Available';
         }
 
         // Redirect ke route property-list dengan semua parameter
