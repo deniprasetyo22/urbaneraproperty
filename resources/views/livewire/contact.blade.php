@@ -40,8 +40,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:urbanera.id@gmail.com" class="hover:text-brand hover:underline">
-                                <i class="fa-solid fa-envelope"></i> urbanera.id@gmail.com
+                            <a href="mailto:info@urbanera.id" class="hover:text-brand hover:underline">
+                                <i class="fa-solid fa-envelope"></i> info@urbanera.id
                             </a>
                         </li>
                         <li>

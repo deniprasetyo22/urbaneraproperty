@@ -180,7 +180,7 @@
                                             <span>{{ Str::title(strtolower($residence->city)) }}</span>
                                         </div>
 
-                                        <a href="{{ route('property-list', ['location' => $residence->city]) }}"
+                                        <a href="{{ route('property-list', ['residence' => $residence->name]) }}"
                                             class="mt-2 rounded-full border border-blue-600 px-4 py-1 text-sm text-blue-600 hover:bg-blue-600 hover:text-white">
                                             View all
                                         </a>

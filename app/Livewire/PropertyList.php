@@ -24,20 +24,23 @@ class PropertyList extends Component
     //     'perPage' => ['except' => 6],
     // ];
 
-    #[Url]
+    #[Url(except: '')]
     public $search = '';
 
-    #[Url]
+    #[Url(except: 'Latest')]
     public $sort = 'Latest';
 
-    #[Url]
+    #[Url(except: '')]
     public $priceRange = '';
 
-    #[Url]
+    #[Url(except: '')]
     public $location = '';
 
-    #[Url]
+    #[Url(except: '')]
     public $type = '';
+
+    #[Url(except: '')]
+    public $residence = '';
 
     public function updatedPerPage() { $this->resetPage(); }
     public function updatedSearch() { $this->resetPage(); }
@@ -45,6 +48,7 @@ class PropertyList extends Component
     public function updatedPriceRange() { $this->resetPage(); }
     public function updatedLocation() { $this->resetPage(); }
     public function updatedType() { $this->resetPage(); }
+    public function updatedResidence() { $this->resetPage(); }
 
     public function setSort(string $value)
     {
@@ -90,19 +94,31 @@ class PropertyList extends Component
         return Property::select('type')->distinct()->orderBy('type')->pluck('type');
     }
 
+    public function setResidence(string $value)
+    {
+        $this->residence = $value;
+        $this->resetPage();
+    }
+
+    public function getResidencesProperty()
+    {
+        return Residence::select('name')->distinct()->orderBy('name')->pluck('name');
+    }
+
     // Method untuk Reset Filter
     public function resetFilters()
     {
-        $this->reset(['location', 'type', 'priceRange', 'sort']);
+        $this->reset(['location', 'type', 'priceRange', 'sort', 'residence', 'search']);
         $this->resetPage();
     }
 
     public function mount()
     {
         // Mengisi filter dari URL parameter (fallback manual jika #[Url] tidak langsung trigger di UI tertentu)
-        $this->location = request()->query('location', $this->location);
-        $this->type = request()->query('type', $this->type);
-        $this->priceRange = request()->query('priceRange', $this->priceRange);
+        // $this->location = request()->query('location', $this->location);
+        // $this->type = request()->query('type', $this->type);
+        // $this->priceRange = request()->query('priceRange', $this->priceRange);
+        // $this->residence = request()->query('residence', $this->residence);
     }
 
     public function render()
@@ -128,6 +144,10 @@ class PropertyList extends Component
 
         if ($this->type) {
             $query->where('type', $this->type);
+        }
+
+        if ($this->residence) {
+            $query->whereHas('residence', fn($q) => $q->where('name', $this->residence));
         }
 
         if ($this->priceRange) {

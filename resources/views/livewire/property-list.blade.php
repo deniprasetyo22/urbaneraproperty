@@ -91,6 +91,17 @@
                                         </div>
 
                                         <div>
+                                            <label class="text-heading mb-2 block text-sm font-medium">Residence</label>
+                                            <select wire:model.live="residence"
+                                                class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:border-brand focus:ring-brand w-full border px-3 py-2.5 text-sm">
+                                                <option value="">All Residences</option>
+                                                @foreach ($this->residences as $residence)
+                                                    <option value="{{ $residence }}">{{ $residence }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div>
                                             <label class="text-heading mb-2 block text-sm font-medium">Location</label>
                                             <select wire:model.live="location"
                                                 class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:border-brand focus:ring-brand w-full border px-3 py-2.5 text-sm">
@@ -177,7 +188,7 @@
             {{-- END SIDEBAR --}}
 
             <div class="flex items-center justify-center">
-                <div class="my-24" wire:loading wire:target="search,setSort">
+                <div class="my-24" wire:loading wire:target="search,setSort,resetFilters">
                     <div role="status" class="flex flex-col items-center gap-3">
                         <svg aria-hidden="true" class="text-neutral-quaternary fill-brand h-10 w-10 animate-spin"
                             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +204,8 @@
                 </div>
             </div>
 
-            <div wire:loading.remove wire:target="search,setSort,setPriceRange,setLocation,setType,page,resetFilters">
+            <div wire:loading.remove
+                wire:target="search,setSort,setPriceRange,setLocation,setType,setResidence,page,resetFilters">
                 @if (count($properties) == 0)
                     <div class="flex flex-col items-center justify-center py-10">
                         <div class="rounded-full bg-gray-100 p-4">
