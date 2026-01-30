@@ -80,6 +80,15 @@ class PropertyResource extends Resource
                             ->placeholder('0')
                             ->required(),
 
+                    Forms\Components\Select::make('status')
+                        ->options([
+                            'Available' => 'Available',
+                            'Sold Out' => 'Sold Out',
+                        ])
+                        ->placeholder('Select Status')
+                        ->required()
+                        ->columnSpanFull(),
+
                     Forms\Components\RichEditor::make('description')
                         ->placeholder('Description')
                         ->columnSpanFull()
@@ -205,10 +214,10 @@ class PropertyResource extends Resource
                     ->label('Residence')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
-                    ->money('IDR', true)
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d M Y H:i')

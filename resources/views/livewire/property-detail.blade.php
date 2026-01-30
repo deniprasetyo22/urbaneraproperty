@@ -225,9 +225,15 @@
 
                 <div class="border-default-medium rounded-md border p-5 shadow">
                     <p class="text-sm text-gray-500">Start from</p>
-                    <p class="mt-1 text-xl font-bold text-gray-900">
-                        IDR {{ number_format($property->price) }}
-                    </p>
+                    @if ($property->status == 'Available')
+                        <p class="mt-1 text-xl font-bold text-gray-900">
+                            IDR {{ number_format($property->price) }}
+                        </p>
+                    @elseif ($property->status == 'Sold Out')
+                        <p class="mt-1 text-xl font-bold text-red-500">
+                            Sold Out
+                        </p>
+                    @endif
                 </div>
 
                 <!-- KPR -->
@@ -248,9 +254,8 @@
                                 x-on:input="
                                 let value = $event.target.value.replace(/[^0-9]/g, '');
                                 $event.target.value = new Intl.NumberFormat('id-ID').format(value);
-                                $wire.set('price', value);
-                            "
-                                value="{{ number_format($price, 0, ',', '.') }}"
+                                $wire.set('price', value);"
+                                value="{{ $property->status == 'Available' ? number_format($price ?? $property->price, 0, ',', '.') : number_format(0, 0, ',', '.') }}"
                                 class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand shadow-xs block w-full cursor-not-allowed border py-2.5 pl-10 pr-3 text-sm"
                                 placeholder="0" required>
                         </div>

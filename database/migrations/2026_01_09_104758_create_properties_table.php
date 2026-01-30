@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('type');
             $table->string('slug')->unique();
+            $table->string('status');
             $table->text('description');
             $table->unsignedBigInteger('price');
             $table->text('nearby_amenities');

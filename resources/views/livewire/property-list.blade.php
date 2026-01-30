@@ -225,13 +225,17 @@
                         @foreach ($properties as $property)
                             <div class="overflow-hidden rounded-xl shadow">
                                 <div class="relative overflow-hidden">
-                                    @if ($loop->index < 3)
+                                    @if ($loop->index < 3 && $property->status === 'Available')
                                         <span
                                             class="absolute left-0 top-0 z-10 rounded-lg bg-green-500 px-4 py-1 text-sm text-white">
                                             New
                                         </span>
+                                    @elseif ($property->status === 'Sold Out')
+                                        <span
+                                            class="absolute left-0 top-0 z-10 rounded-lg bg-red-500 px-4 py-1 text-sm text-white">
+                                            Sold Out
+                                        </span>
                                     @endif
-
 
                                     {{-- LOGIC PHP: Cek Tipe File (Video vs Image) --}}
                                     @php
@@ -304,7 +308,11 @@
                                         <span>{{ Str::title(strtolower($property->residence->city)) }}</span>
                                     </div>
                                     <div class="flex items-center justify-between">
-                                        <p class="font-bold">Rp. {{ number_format($property->price) }}</p>
+                                        @if ($property->status === 'Available')
+                                            <p class="font-bold">Rp. {{ number_format($property->price) }}</p>
+                                        @elseif ($property->status === 'Sold Out')
+                                            <p class="font-bold text-red-500">Sold Out</p>
+                                        @endif
                                         <a href="{{ route('property-detail', $property->slug) }}"
                                             class="rounded-full border border-blue-600 px-2 py-1 text-sm text-blue-600 hover:bg-blue-600 hover:text-white">
                                             View details

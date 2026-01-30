@@ -78,7 +78,7 @@
                 <h3 class="mb-4 font-semibold text-white">Social Media</h3>
                 <ul class="text-tertiary space-y-2 text-sm">
                     <li>
-                        <a href="#" class="flex items-center gap-2 hover:text-white">
+                        <a href="https://youtube.com/@urbanera_id" class="flex items-center gap-2 hover:text-white">
                             <i class="fa-brands fa-youtube text-xs"></i>
                             YouTube
                         </a>
