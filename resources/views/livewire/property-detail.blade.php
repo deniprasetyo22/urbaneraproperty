@@ -16,6 +16,7 @@
 <div class="mt-16 bg-white">
     <div class="mx-auto max-w-7xl px-6 pt-8">
 
+        {{-- Success Toast --}}
         @if ($toastSuccess)
             <div class="fixed right-5 top-5 z-50">
                 <div id="toast-success"
@@ -139,14 +140,14 @@
             {{-- BUTTON --}}
             @if (count($gallery) > 4)
                 <div class="mt-4 flex justify-center">
-                    <button type="button" wire:click="toggleShow" wire:loading.attr="disabled"
+                    <button type="button" wire:click="toggleShow" wire:loading.attr="disabled" wire:target="toggleShow"
                         class="border-brand bg-neutral-primary text-fg-brand hover:bg-brand relative rounded-full border px-5 py-2 text-xs leading-5 transition hover:text-white disabled:cursor-not-allowed disabled:opacity-60">
 
-                        <span wire:loading.remove>
+                        <span wire:loading.remove wire:target="toggleShow">
                             Show {{ $showAll ? 'Less' : 'More' }}
                         </span>
 
-                        <span wire:loading>
+                        <span wire:loading wire:target="toggleShow">
                             Loading...
                         </span>
 
@@ -238,7 +239,7 @@
 
                 <!-- KPR -->
                 <div class="border-default-medium space-y-4 rounded-md border p-5 shadow">
-                    <h3 class="font-semibold">KPR Calculator</h3>
+                    <h3 class="font-semibold">KPR Simulator</h3>
 
                     {{-- PRICE --}}
                     <div>
@@ -499,7 +500,8 @@
                         <div class="hidden duration-700 ease-in-out"
                             data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
 
-                            <img src="{{ asset('storage/' . $item) }}" wire:click="openModal('{{ $item }}')"
+                            <img src="{{ asset('storage/' . $item) }}"
+                                wire:click="openModalFloorPlan('{{ $item }}')"
                                 class="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 cursor-pointer object-cover"
                                 alt="Floor plan {{ $index + 1 }}">
                         </div>
@@ -559,35 +561,107 @@
             </div>
         </div>
 
-
         {{-- MODAL --}}
         @if ($showModal)
-            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" x-data
+                x-on:keydown.window.escape="$wire.closeModal()" x-on:keydown.window.arrow-right="$wire.nextImage()"
+                x-on:keydown.window.arrow-left="$wire.prevImage()">
 
                 <div class="absolute inset-0" wire:click="closeModal"></div>
 
-                <div class="relative z-10 w-full max-w-5xl px-4">
+                <div class="relative z-10 flex w-full max-w-5xl items-center px-4">
 
-                    <div class="relative w-full rounded-md">
+                    {{-- Tombol Prev --}}
+                    <button wire:click="prevImage"
+                        class="absolute left-4 z-30 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/50">
+                        <svg class="h-6 w-6 md:h-8 md:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
 
+                    <div class="relative flex w-full items-center justify-center overflow-hidden rounded-md">
                         <button wire:click="closeModal"
-                            class="absolute right-0 top-0 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-800 shadow hover:bg-gray-300 md:-right-2 md:-top-4">
+                            class="absolute right-0 top-0 z-40 flex h-6 w-6 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/50 md:h-9 md:w-9">
                             ✕
                         </button>
 
                         @if ($isVideo($activeImage))
-                            {{-- MODAL VIDEO (Pakai Controls) --}}
-                            <video controls autoplay class="max-h-[80vh] w-full object-contain">
+                            <video controls autoplay class="max-h-[85vh] w-auto bg-black object-contain">
                                 <source src="{{ asset('storage/' . $activeImage) }}">
-                                Your browser does not support the video tag.
                             </video>
                         @else
-                            {{-- MODAL GAMBAR --}}
                             <img src="{{ asset('storage/' . $activeImage) }}"
-                                class="max-h-[80vh] w-full object-contain">
+                                class="max-h-[85vh] w-auto select-none object-contain shadow-2xl">
                         @endif
 
+                        {{-- Label Index (Opsional) --}}
+                        <div
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-xs text-white">
+                            {{ $currentIndex + 1 }} /
+                            {{ count(array_filter(is_array($property->media) ? $property->media : json_decode($property->media, true) ?? [])) }}
+                        </div>
                     </div>
+
+                    {{-- Tombol Next --}}
+                    <button wire:click="nextImage"
+                        class="absolute right-4 z-30 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/50">
+                        <svg class="h-6 w-6 md:h-8 md:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        @endif
+
+
+        {{-- FLOOR PLAN MODAL --}}
+        @if ($showModalFloorPlan)
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80" x-data
+                x-on:keydown.window.escape="$wire.closeModalFloorPlan()"
+                x-on:keydown.window.arrow-right="$wire.nextImageFloorPlan()"
+                x-on:keydown.window.arrow-left="$wire.prevImageFloorPlan()">
+
+                <div class="absolute inset-0" wire:click="closeModalFloorPlan"></div>
+
+                <div class="relative z-10 flex w-full max-w-5xl items-center px-4">
+
+                    {{-- Tombol Prev --}}
+                    <button wire:click.stop="prevImageFloorPlan"
+                        class="absolute left-4 z-30 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/50">
+                        <svg class="h-6 w-6 md:h-8 md:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+
+                    <div class="relative flex w-full items-center justify-center overflow-hidden rounded-md">
+                        <button wire:click="closeModalFloorPlan"
+                            class="absolute right-0 top-0 z-40 flex h-6 w-6 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/50 md:h-9 md:w-9">
+                            ✕
+                        </button>
+
+                        <img src="{{ asset('storage/' . $activeImage) }}"
+                            class="max-h-[85vh] w-auto select-none object-contain shadow-2xl">
+
+                        {{-- Label Index --}}
+                        {{-- PERBAIKAN: Hitung floor_plan, bukan media --}}
+                        <div
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-xs text-white">
+                            {{ $currentIndexFloorPlan + 1 }} /
+                            {{ count(is_array($property->floor_plan) ? $property->floor_plan : json_decode($property->floor_plan, true) ?? []) }}
+                        </div>
+                    </div>
+
+                    {{-- Tombol Next --}}
+                    <button wire:click.stop="nextImageFloorPlan"
+                        class="absolute right-4 z-30 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/50">
+                        <svg class="h-6 w-6 md:h-8 md:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         @endif

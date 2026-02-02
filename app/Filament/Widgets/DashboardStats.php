@@ -9,6 +9,7 @@ use App\Models\Brochure;
 use App\Models\Property;
 use App\Models\Residence;
 use App\Models\Testimonial;
+use App\Models\CustomerData;
 use App\Models\CompanyProfile;
 use App\Models\CustomerFeedback;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -35,11 +36,15 @@ class DashboardStats extends BaseWidget
                 ->icon('heroicon-o-building-office-2')
                 ->color('gray'),
 
+            Stat::make('Customer Data', CustomerData::count())
+                ->icon('heroicon-o-document-chart-bar')
+                ->color('success'),
+
             Stat::make('Customer Feedbacks', CustomerFeedback::count())
                 ->icon('heroicon-o-chat-bubble-left-right')
                 ->color('success'),
 
-            Stat::make('Messages', Message::count())
+            Stat::make('Customer Messages', Message::count())
                 ->icon('heroicon-o-envelope')
                 ->color('danger'),
 

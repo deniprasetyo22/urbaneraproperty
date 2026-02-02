@@ -160,7 +160,7 @@
                     <button type="button" onclick="submitMessage()" wire:loading.attr="disabled" wire:target="submit"
                         class="flex w-full items-center justify-center rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
 
-                        <span wire:loading.remove wire:target="submit">Send Feedback</span>
+                        <span wire:loading.remove wire:target="submit">Send Message</span>
 
                         <span wire:loading wire:target="submit" class="flex items-center gap-2">
                             Sending...

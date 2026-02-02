@@ -11,14 +11,23 @@ use App\Models\CustomerData;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomerDataNotificationMail;
 
 #[Title('Properties')]
 class PropertyDetail extends Component
 {
     public $property;
     public $showAll = false;
+
+    // Gallery State
     public $showModal = false;
     public $activeImage = null;
+    public $currentIndex = 0;
+
+    // Floor Plan State
+    public $showModalFloorPlan = false;
+    public $currentIndexFloorPlan = 0;
+
     public $modalBrochure = false;
 
     // KPR fields
@@ -26,14 +35,13 @@ class PropertyDetail extends Component
     public $bank_id;
     public $interest_rate;
     public $down_payment = 0;
-    public $tenor; // years
-
+    public $tenor;
     public $monthly_installment = 0;
 
+    // Form fields
     public $name;
     public $email;
     public $phone;
-
     public $toastSuccess = false;
 
     protected $listeners = [
@@ -47,6 +55,16 @@ class PropertyDetail extends Component
         $this->price = $property->price;
     }
 
+    // --- HELPER: Mengambil Array Gambar (Media/FloorPlan) ---
+    private function getImagesArray($source)
+    {
+        if (is_array($source)) {
+            return array_values(array_filter($source));
+        }
+        $decoded = json_decode($source, true);
+        return is_array($decoded) ? array_values(array_filter($decoded)) : [];
+    }
+
     public function toggleShow()
     {
         $this->showAll = !$this->showAll;
@@ -56,11 +74,85 @@ class PropertyDetail extends Component
     {
         $this->activeImage = $img;
         $this->showModal = true;
+
+        // Cari index gambar yang sedang diklik dari galeri
+        $rawMedia = $this->property->media;
+        $gallery = is_array($rawMedia) ? $rawMedia : json_decode($rawMedia, true) ?? [];
+        $gallery = array_values(array_filter($gallery)); // reset keys
+
+        $this->currentIndex = array_search($img, $gallery);
+    }
+
+    // Tambahkan fungsi navigasi baru
+    public function nextImage()
+    {
+        $rawMedia = $this->property->media;
+        $gallery = array_values(array_filter(is_array($rawMedia) ? $rawMedia : json_decode($rawMedia, true) ?? []));
+
+        if ($this->currentIndex < count($gallery) - 1) {
+            $this->currentIndex++;
+        } else {
+            $this->currentIndex = 0; // Loop ke awal
+        }
+        $this->activeImage = $gallery[$this->currentIndex];
+    }
+
+    public function prevImage()
+    {
+        $rawMedia = $this->property->media;
+        $gallery = array_values(array_filter(is_array($rawMedia) ? $rawMedia : json_decode($rawMedia, true) ?? []));
+
+        if ($this->currentIndex > 0) {
+            $this->currentIndex--;
+        } else {
+            $this->currentIndex = count($gallery) - 1; // Loop ke akhir
+        }
+        $this->activeImage = $gallery[$this->currentIndex];
     }
 
     public function closeModal()
     {
         $this->showModal = false;
+    }
+
+    // Floor Plan
+    public function openModalFloorPlan($img)
+    {
+        $this->activeImage = $img;
+        $this->showModalFloorPlan = true;
+
+        // FIX: Gunakan 'floor_plan' (singular) sesuai database/blade
+        $floorPlans = $this->getImagesArray($this->property->floor_plan);
+
+        $this->currentIndexFloorPlan = array_search($img, $floorPlans) ?: 0;
+    }
+
+    public function nextImageFloorPlan()
+    {
+        // FIX: Gunakan 'floor_plan'
+        $floorPlans = $this->getImagesArray($this->property->floor_plan);
+
+        if (empty($floorPlans)) return;
+
+        $this->currentIndexFloorPlan = ($this->currentIndexFloorPlan < count($floorPlans) - 1) ? $this->currentIndexFloorPlan + 1 : 0;
+        $this->activeImage = $floorPlans[$this->currentIndexFloorPlan];
+    }
+
+    public function prevImageFloorPlan()
+    {
+        // FIX: Gunakan 'floor_plan'
+        $floorPlans = $this->getImagesArray($this->property->floor_plan);
+
+        if (empty($floorPlans)) return;
+
+        $this->currentIndexFloorPlan = ($this->currentIndexFloorPlan > 0) ? $this->currentIndexFloorPlan - 1 : count($floorPlans) - 1;
+        $this->activeImage = $floorPlans[$this->currentIndexFloorPlan];
+    }
+
+    public function closeModalFloorPlan()
+    {
+        $this->showModalFloorPlan = false;
+        $this->activeImage = null;
     }
 
     public function updatedBankId($value)
@@ -169,7 +261,7 @@ class PropertyDetail extends Component
         }
 
         // Jika lolos, simpan data
-        CustomerData::create([
+        $data = CustomerData::create([
             'name'  => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -185,6 +277,14 @@ class PropertyDetail extends Component
         Mail::to($this->email)->queue(
             new BrochureMail($this->name, $brochure->file)
         );
+
+        $sendEmailNotificationTo = [
+            config('mail.from.address'),
+            'urbanera.id@gmail.com',
+        ];
+
+        Mail::to($sendEmailNotificationTo)
+            ->queue(new CustomerDataNotificationMail($data));
 
         $this->toastSuccess = true;
 

@@ -1,70 +1,62 @@
 <div>
     {{-- HERO SECTION --}}
     <livewire:hero hero_quote="What Our Happy Residents Say" hero_title="Testimonials"
-        hero_subTitle="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda quibusdam voluptas ipsum, rem nihil dolorem necessitatibus placeat saepe. Sed, numquam! Atque doloremque asperiores dignissimos? Et." />
+        hero_subTitle="Lorem ipsum, dolor sit amet consectetur adipisicing elit." />
 
     <section class="py-12 md:py-16">
         <div class="mx-auto max-w-7xl px-6">
 
             <div class="mb-6 flex items-center justify-between">
-                <!-- TITLE -->
                 <h2 class="text-xl font-semibold text-gray-800">
                     Testimonials
                 </h2>
 
-                <!-- SORT -->
                 <div class="rounded-base shadow-xs flex">
 
-                    <!-- SORT DROPDOWN -->
-                    <div class="relative">
-                        <button id="dropdown-button" data-dropdown-toggle="sort" type="button"
+                    {{-- x-data: Inisialisasi state open = false --}}
+                    <div class="relative" x-data="{ open: false }">
+
+                        {{-- Tombol Trigger --}}
+                        <button @click="open = !open" type="button"
                             class="bg-brand hover:bg-brand-strong focus:ring-brand-medium shadow-xs rounded-base box-border flex items-center justify-around border border-transparent px-4 py-2 text-sm font-medium leading-5 text-white focus:outline-none focus:ring-4">
 
                             <i class="fa-solid fa-filter mr-2"></i> {{ $sort }}
 
-                            <svg class="ms-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            {{-- Icon Rotate Logic --}}
+                            <svg class="ms-1.5 h-4 w-4 transition-transform duration-200"
+                                :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
 
-                        <!-- DROPDOWN MENU -->
-                        <div id="sort"
-                            class="rounded-base border-default-medium bg-neutral-primary-medium absolute right-0 z-10 mt-2 hidden w-44 border shadow-lg">
+                        {{-- Dropdown Body --}}
+                        <div x-show="open" @click.outside="open = false"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" style="display: none;"
+                            class="rounded-base border-default-medium bg-neutral-primary-medium absolute right-0 z-20 mt-2 w-44 border shadow-lg">
+
                             <ul class="text-body p-2 text-sm font-medium">
-                                <li>
-                                    <button wire:click="setSort('Latest')"
-                                        class="hover:bg-neutral-tertiary-medium hover:text-heading block w-full rounded-md p-2 text-left">
-                                        Latest
-                                    </button>
-                                </li>
-                                <li>
-                                    <button wire:click="setSort('Oldest')"
-                                        class="hover:bg-neutral-tertiary-medium hover:text-heading block w-full rounded-md p-2 text-left">
-                                        Oldest
-                                    </button>
-                                </li>
-                                <li>
-                                    <button wire:click="setSort('Highest')"
-                                        class="hover:bg-neutral-tertiary-medium hover:text-heading block w-full rounded-md p-2 text-left">
-                                        Highest Rating
-                                    </button>
-                                </li>
-                                <li>
-                                    <button wire:click="setSort('Lowest')"
-                                        class="hover:bg-neutral-tertiary-medium hover:text-heading block w-full rounded-md p-2 text-left">
-                                        Lowest Rating
-                                    </button>
-                                </li>
+                                @foreach (['Latest', 'Oldest', 'Highest', 'Lowest'] as $item)
+                                    <li>
+                                        {{-- Saat diklik: Panggil Livewire setSort, LALU tutup dropdown (open = false) --}}
+                                        <button wire:click="setSort('{{ $item }}'); open = false"
+                                            class="hover:bg-neutral-tertiary-medium hover:text-heading {{ $sort === $item ? 'bg-gray-100 font-bold' : '' }} block w-full rounded-md p-2 text-left">
+                                            {{ $item === 'Highest' ? 'Highest Rating' : ($item === 'Lowest' ? 'Lowest Rating' : $item) }}
+                                        </button>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
 
 
-            <!-- GRID -->
             <div class="flex items-center justify-center">
                 <div class="my-24" wire:loading wire:target="search,setSort">
                     <div role="status" class="flex flex-col items-center gap-3">
@@ -102,7 +94,36 @@
                 @else
                     <div class="grid gap-6 md:grid-cols-3">
                         @foreach ($testimonials as $testimonial)
-                            <div class="rounded-xl bg-white p-8 text-center shadow">
+                            <div class="relative rounded-xl bg-white p-8 text-center shadow">
+
+                                {{-- 3 Dots Button (Alpine JS per Card) --}}
+                                @if ($testimonial->video_link)
+                                    {{-- Setiap kartu punya scope x-data sendiri --}}
+                                    <div class="absolute right-4 top-4" x-data="{ open: false }">
+
+                                        <button @click="open = !open"
+                                            class="rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                            </svg>
+                                        </button>
+
+                                        {{-- Dropdown Menu --}}
+                                        <div x-show="open" @click.outside="open = false" x-transition.origin.top.right
+                                            style="display: none;"
+                                            class="absolute right-0 z-10 mt-1 w-auto rounded-md border border-gray-200 bg-white shadow-md">
+
+                                            <a href="{{ $testimonial->video_link }}"
+                                                class="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-1.5 text-gray-700 hover:bg-gray-100">
+                                                <i class="fa-brands fa-youtube text-xl text-red-500"></i>
+                                                <span class="text-xs">View on YouTube</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 <img src="{{ asset($testimonial->avatar) }}" alt="{{ $testimonial->name }}"
                                     class="mx-auto mb-4 h-20 w-20 rounded-full object-cover">
 
@@ -119,6 +140,7 @@
                                     "{{ $testimonial->quote }}"
                                 </p>
 
+                                {{-- Rating --}}
                                 <div class="mt-4 flex justify-center gap-1 text-yellow-400">
                                     @for ($i = 1; $i <= 5; $i++)
                                         <svg xmlns="http://www.w3.org/2000/svg"

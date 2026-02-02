@@ -2,17 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\CustomerFeedback;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Exports\CustomerFeedbackExporter;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CustomerFeedbackResource\Pages;
 use App\Filament\Resources\CustomerFeedbackResource\RelationManagers;
-use App\Models\CustomerFeedback;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Components\Tab;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CustomerFeedbackResource extends Resource
 {
@@ -82,7 +84,13 @@ class CustomerFeedbackResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->label('Export Data')
+                    ->exporter(CustomerFeedbackExporter::class)
+            ]);;
     }
 
     public static function getRelations(): array

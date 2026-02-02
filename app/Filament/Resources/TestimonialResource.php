@@ -82,6 +82,13 @@ class TestimonialResource extends Resource
                     ->rows(5)
                     ->columnSpanFull()
                     ->required(),
+
+                TextInput::make('video_link')
+                    ->label('Video Link')
+                    ->placeholder('https://www.youtube.com/watch?v=example')
+                    ->columnSpanFull()
+                    ->url()
+                    ->nullable(),
             ]);
     }
 

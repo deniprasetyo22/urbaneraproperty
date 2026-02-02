@@ -15,13 +15,6 @@ class Testimonial extends Component
     protected $paginationTheme = 'tailwind';
 
     public int $perPage = 9;
-
-    // protected $queryString = [
-    //     'sort' => ['except' => 'latest'],
-    //     'page' => ['except' => 1],
-    //     'perPage' => ['except' => 6],
-    // ];
-
     public string $sort = 'Latest';
 
     public function updatedPerPage()

@@ -63,8 +63,13 @@ class Contact extends Component
             'message' => $this->message,
         ]);
 
+        $sendEmailNotificationTo = [
+            config('mail.from.address'),
+            'urbanera.id@gmail.com',
+        ];
+
         // kirim email notifikasi
-        Mail::to(config('mail.from.address'))
+        Mail::to($sendEmailNotificationTo)
             ->queue(new MessageNotificationMail($data));
 
         // reset form

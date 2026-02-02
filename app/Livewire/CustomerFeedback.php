@@ -64,7 +64,12 @@ class CustomerFeedback extends Component
             'message'  => $this->message,
         ]);
 
-        Mail::to(config('mail.from.address'))
+        $sendEmailNotificationTo = [
+            config('mail.from.address'),
+            'urbanera.id@gmail.com',
+        ];
+
+        Mail::to($sendEmailNotificationTo)
             ->queue(new CustomerFeedbackNotificationMail($data));
 
         // reset form

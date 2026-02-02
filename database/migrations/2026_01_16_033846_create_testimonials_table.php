@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('residence_id')->constrained()->onDelete('cascade');
             $table->text('quote');
             $table->string('rating');
+            $table->text('video_link')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
