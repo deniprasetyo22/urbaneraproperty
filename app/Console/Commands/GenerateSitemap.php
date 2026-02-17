@@ -40,15 +40,15 @@ class GenerateSitemap extends Command
             ->add(Url::create('/about'))
             ->add(Url::create('/contact'));
 
-        // 2. Tambahkan Rute Properti Dinamis
-        Property::all()->each(function (Property $property) use ($sitemap) {
-            $sitemap->add(Url::create("/property/{$property->slug}"));
-        });
+        // // 2. Tambahkan Rute Properti Dinamis
+        // Property::all()->each(function (Property $property) use ($sitemap) {
+        //     $sitemap->add(Url::create("/property/{$property->slug}"));
+        // });
 
-        // 3. Tambahkan Rute Artikel Dinamis
-        Article::all()->each(function (Article $article) use ($sitemap) {
-            $sitemap->add(Url::create("/article/{$article->slug}"));
-        });
+        // // 3. Tambahkan Rute Artikel Dinamis
+        // Article::all()->each(function (Article $article) use ($sitemap) {
+        //     $sitemap->add(Url::create("/article/{$article->slug}"));
+        // });
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
 

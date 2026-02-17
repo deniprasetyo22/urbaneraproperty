@@ -1,0 +1,46 @@
+[33m5be79e2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: Add Icon
+[33m720a377[m HEAD@{1}: commit: Remove Sitemap
+[33m7bd90a0[m HEAD@{2}: commit: Add Sitemap
+[33m8038a97[m HEAD@{3}: commit: Add Google Search
+[33m255da8c[m HEAD@{4}: commit: Revisi
+[33m8f4496c[m HEAD@{5}: commit: Update Search
+[33mdd98c5e[m HEAD@{6}: commit: Update Property Status
+[33m2dcd963[m HEAD@{7}: commit: Update Property Status
+[33m4bc0fbc[m HEAD@{8}: commit: Update filter
+[33m899c71c[m HEAD@{9}: commit: Update brochure name
+[33m176b54a[m HEAD@{10}: commit: Update Brochure
+[33m2013dd7[m HEAD@{11}: commit: Update Articles
+[33mb4648dc[m HEAD@{12}: commit: Update Articles
+[33me79e4b3[m HEAD@{13}: commit: Update Property Detail
+[33ma2dcbba[m HEAD@{14}: commit: Update
+[33m6ea197f[m HEAD@{15}: commit: Update Logo
+[33m42caf06[m HEAD@{16}: commit: Update Home Video Link
+[33m9f422bf[m HEAD@{17}: commit: Update home
+[33m7b205ea[m HEAD@{18}: commit: Update Logo
+[33m73455fe[m HEAD@{19}: commit: Update
+[33ma34ac7f[m HEAD@{20}: commit: Add recaptcha on Contact
+[33m6f31cef[m HEAD@{21}: commit: Add CustomerFeedbackNotification
+[33m0d8aca5[m HEAD@{22}: commit: Update Navbar
+[33me1127fe[m HEAD@{23}: commit: Update Navbar
+[33m0262b8c[m HEAD@{24}: commit: Update Navbar
+[33mb5a6f54[m HEAD@{25}: commit: Bug fix Navbar
+[33mcad2804[m HEAD@{26}: commit: Update Filter Sidebar
+[33m2851da5[m HEAD@{27}: commit: Update Footer
+[33m5b975b0[m HEAD@{28}: reset: moving to HEAD~1
+[33md409088[m HEAD@{29}: commit: Update Footer
+[33m5b975b0[m HEAD@{30}: reset: moving to HEAD~1
+[33mbb6acf8[m HEAD@{31}: commit: Update Footer
+[33m5b975b0[m HEAD@{32}: commit: Update Search Logic
+[33ma3b8173[m HEAD@{33}: reset: moving to HEAD~1
+[33m62b5534[m HEAD@{34}: commit: Update PriceRange Logic
+[33ma3b8173[m HEAD@{35}: commit: Update Path
+[33m0851cd6[m HEAD@{36}: commit: Update images path
+[33ma8ac2ae[m HEAD@{37}: commit: Update Company Profile Video Link
+[33ma8e736f[m HEAD@{38}: commit: Update Profile
+[33m989dabe[m HEAD@{39}: commit: Update Gtag
+[33m30f68f8[m HEAD@{40}: commit: Fixing Forbidden User
+[33m720185d[m HEAD@{41}: commit: Bug Fix on Home and Testimonial
+[33me91b18d[m HEAD@{42}: commit: Add Build
+[33m6f93180[m HEAD@{43}: commit: Ready for deploy
+[33m69ac746[m HEAD@{44}: Branch: renamed refs/heads/master to refs/heads/main
+[33m69ac746[m HEAD@{46}: commit (initial): first commit
