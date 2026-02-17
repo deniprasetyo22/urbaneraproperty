@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+    <loc>http://urbanera.test</loc>
+    <priority>1.0</priority>
+            </url>
+    <url>
+    <loc>http://urbanera.test/residence-list</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/property-list</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/article-list</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/testimonials</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/about</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/contact</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/property/terawood-bintaro-type-36</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/property/terawood-bintaro-type-45</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/property/tahomi-ville-type-36</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/article/modern-drainage-systems-prevent-flooding</loc>
+            </url>
+    <url>
+    <loc>http://urbanera.test/article/zero-waste-movement-in-residential-communities</loc>
+            </url>
+</urlset>
