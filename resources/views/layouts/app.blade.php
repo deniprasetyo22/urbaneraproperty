@@ -32,6 +32,8 @@
             //     'debug_mode': {{ app()->environment('local') ? 'true' : 'false' }}
             // });
         </script>
+
+        <meta name="google-site-verification" content="UEhpcve-xQ9RZANiHmwzif6z62EtDwUt92SH2le3V3s" />
     </head>
 
     <body class="font-primary">
